@@ -5,9 +5,12 @@
 
 ### Startup Code
 
-rm(list = ls())
+rm(list = ls()) # Clear environment
+dev.off(dev.list()["RStudioGD"]) # Clear devices
+cat("\014") #Clear console
 
-setwd("/Volumes/HD2/Users/pstessel/Documents/Git_Repos/text_analysis")
+#setwd("/Volumes/HD2/Users/pstessel/Documents/Git_Repos/text_analysis")
+setwd("~/Documents/Git_Repos/text_analysis")
 
 text.v <- scan("data/plainText/melville.txt", what="character", sep="\n")
 start.v <- which(text.v == "CHAPTER 1. Loomings.")
