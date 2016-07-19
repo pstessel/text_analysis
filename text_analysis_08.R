@@ -52,3 +52,34 @@ show.files <- function(file.name.v){
 }
 
 show.files(files.v)
+
+## 8.3 A Word List Making Function
+# Function takes a vector of file names and a directory path and returns a list in which each item in the list is an ordered vector of words from one of the files in the vector of file names
+make.file.word.v.l <- function(files.v, input.dir){
+  # set up an empty container
+  text.word.vector.l <- list()
+  # loop over the files
+  for(i in 1:length(files.v)){
+    # read the file in (notice that it is here that we need to know the input
+    # directory)
+    text.v <- scan(paste(input.dir, files.v[i], sep="/"),
+                   what="character", sep="\n")
+    # convert to single string
+    text.v <- paste(text.v, collapse=" ")
+    # lowercase and split on non-word characters
+    text.lower.v <- tolower(text.v)
+    text.words.v <- strsplit(text.lower.v, "\\W")
+    text.words.v <- unlist(text.words.v)
+    # remove the blanks
+    text.words.v <- text.words.v[which(text.words.v!="")]
+    # use the index id from the files.v vector as the "name" in the list
+    text.word.vector.l[[files.v[i]]] <- text.words.v
+  }
+  return(text.word.vector.l)
+}
+
+my.corpus.l <- make.file.word.v.l(files.v, input.dir)
+
+## 8.4 Finding Words and Their Neighbors
+my.corpus.l[[1]][1:100]
+positions.v <- which(my.corpus.l[[1]][]=="gutenberg")
